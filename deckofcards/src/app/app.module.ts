@@ -6,25 +6,25 @@ import { ReactiveFormsModule } from '@angular/forms'
 
 import { AppComponent } from './app.component';
 import { MainComponent } from './components/main.component';
-import { CardsComponent } from './components/cards.component';
-import { CardsService } from './cards.service'
+import { DeckService } from './deck.service';
+import {DeckComponent} from './components/deck.component';
 
 const appRoutes: Routes = [
   { path: '', component: MainComponent, title: 'Deck of Cards' },
-  { path: 'deck/:id', component: CardsComponent },
+  { path: 'deck/:deckId', component: DeckComponent },
   { path: '**', redirectTo: '/', pathMatch: 'full' },
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent, CardsComponent
+    MainComponent, DeckComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [ CardsService ],
+  providers: [ DeckService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
