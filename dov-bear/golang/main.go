@@ -7,7 +7,9 @@ import (
 	"math/rand"
 	"net/http"
 	"os"
+	"os/signal"
 	"strconv"
+	"syscall"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -88,6 +90,15 @@ func getPath(path string) (*string, error) {
 	return &fullPath, nil
 }
 
+func handleSignal(sig ...os.Signal) func() {
+	sigs := make(chan os.Signal, 1)
+	signal.Notify(sigs, sig...)
+	return func() {
+		<- sigs
+		fmt.Printf("Caught SIGTERM\n")
+	}
+}
+
 func main() {
 
 	opt := parseCommandLine()
@@ -126,6 +137,8 @@ func main() {
 	}
 	r.GET("/", f)
 	r.GET("/index.html", f)
+
+	go handleSignal(syscall.SIGTERM)()
 
 	fmt.Printf("Starting application at %s on port %d\n", time.Now().UTC().String(), opt.port)
 

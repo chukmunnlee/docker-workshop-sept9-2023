@@ -58,7 +58,7 @@ app.set('view engine', 'hbs')
 
 app.use(morgan('common'))
 
-app.get('/healthz', (req, resp) => {
+app.get('/healthz', (_, resp) => {
 	resp.status(204).end()
 })
 
@@ -98,5 +98,9 @@ exporter.startServer()
 	.catch(error => {
 		console.error('Cannot start metrics: ', error)
 	})
+
+process.on('SIGTERM', () => {
+	console.info('Caught SIGTERM')
+})
 
 
