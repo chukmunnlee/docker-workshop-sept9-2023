@@ -1,7 +1,8 @@
 package main
 
-denylist = [ "apk" ]
+denylist = [ "apt" ]
 
+# Cannot use latest tag
 deny[msg] {
 	input[i].Cmd = "from"
 	val = input[i].Value
@@ -17,6 +18,7 @@ deny[msg] {
 	msg = sprintf("Add a tag to the FROM image %s", [ val ])
 }
 
+# Cannot run commands from denylist
 deny[msg] {
 	input[i].Cmd = "run"
 	val = input[i].Value
@@ -24,14 +26,17 @@ deny[msg] {
 	msg = sprintf("Command not allowed %s", [ val ])
 }
 
+# Dockerfile must include the following commands
 deny[msg] {
-	without_labels = [ l | input[i].Cmd = "label"; l = 1 ]
-	count(without_labels) <= 0
+	count(has_cmd("label")) <= 0
 	msg = "Add LABEL the Dockerfile"
 }
 
 deny[msg] {
-	without_healthcheck = [ hc | input[i].Cmd = "healthcheck"; hc := 1 ]
-	count(without_healthcheck) <= 0
+	count(has_cmd("healthcheck")) <= 0
 	msg = "Image must include HEALTHCHECK"
+}
+
+has_cmd(cmd) = cmd_array {
+	cmd_array := [ c | input[i].Cmd = cmd; c = input[i] ]
 }
