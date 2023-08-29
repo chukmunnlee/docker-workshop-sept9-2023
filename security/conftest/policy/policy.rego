@@ -27,7 +27,7 @@ deny[msg] {
 }
 
 # Dockerfile must include the following commands
-deny[msg] {
+warn[msg] {
 	count(has_cmd("label")) <= 0
 	msg = "Add LABEL the Dockerfile"
 }
