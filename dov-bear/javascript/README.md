@@ -1,6 +1,3 @@
-# OpenTelemetry Packages
+Packages are not upgraded to show vulnerability
 
-- @opentelemetry/sdk-metrics
-- @opentelemetry/exporter-prometheus
-- @opentelemetry/sdk-node
-- @opentelemetry/auto-instrumentations-node
+trivy fs --format=sarif --output=scan.sarif --severity HIGH,CRITICAL .
