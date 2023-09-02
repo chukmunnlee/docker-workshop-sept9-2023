@@ -1,27 +1,28 @@
 # Deckofcards
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.
+## Setup Angular
 
-## Development server
+Install the latest version of Node from [nodejs.org](https://nodejs.org/en/download). 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Open a terminal and xnstall Angular CLI with the following command `npm i -g @angular/cli`. Prefix the command with `sudo` if you are using OSX. See [angular.io](https://angular.io/cli) for detailed instructions.
 
-## Code scaffolding
+## Compile Angular Application
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run `ng build` to compile the Angular application. The compile files will be under `dist/deckofcards` directory
 
-## Build
+## Serve the Angular Application
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Use a web server to serve the compiled Angular application. Here is a list of web server 
 
-## Running unit tests
+- [Nginx](http://nginx.org/en/download.html) 
+- [http-server](https://www.npmjs.com/package/http-server)
+- [Caddy](https://github.com/caddyserver/caddy)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+For example using Caddy to serve 
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```
+  # Build Angular application
+  ng build
+  # Serve Angular application on port 3000
+  caddy file-server --listen :3000 --root dist/deckofcards
+```
