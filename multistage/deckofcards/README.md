@@ -8,6 +8,15 @@ Open a terminal and xnstall Angular CLI with the following command `npm i -g @an
 
 ## Compile Angular Application
 
+List of required files and directories
+-  angular.json
+-  package.json
+-  package-lock.json
+-  tsconfig.app.json
+-  tsconfig.json
+-  tsconfig.spec.json
+-  src
+
 Run `ng build` to compile the Angular application. The compile files will be under `dist/deckofcards` directory
 
 ## Serve the Angular Application
